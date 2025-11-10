@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
@@ -7,6 +7,8 @@ function App() {
   // 🔹 Estado para guardar el resultado convertido
   const [resultado, setResultado] = useState(0);
   const [valor, setValor] = useState("");
+  // Esta es la variable que guarda el reloj, osea la hora.. 
+  const [hora, setHora] = useState(new Date().toLocaleTimeString());
 
   // 🔹 Función pura que hace la conversión
   function cantDeCentimetros(valor) {
@@ -23,6 +25,14 @@ function App() {
     const valorConvertido = cantDeCentimetros(valor);
     setResultado(valorConvertido); // guarda el resultado final
   }
+  // reloj!
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setHora(new Date().toLocaleTimeString());
+    }, 1000);
+    return () => clearInterval(intervalo);
+  }, []);
 
   return (
     <>
@@ -52,6 +62,7 @@ function App() {
       <div className="container text-center mt-5">
         <h1>Conversor de centímetros a metros</h1>
 
+        <h2>{hora}</h2>
         {/* INPUT */}
         <div className="row mt-4">
           <div className="col-md-6 offset-md-3">
